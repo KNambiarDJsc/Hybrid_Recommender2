@@ -2,6 +2,16 @@ import streamlit as st
 import pandas as pd
 import requests
 
+import subprocess
+import os
+
+# Only run this once (not on every rerun)
+if not os.path.exists("api_lockfile"):
+    subprocess.Popen(["python", "api.py"])
+    with open("api_lockfile", "w") as f:
+        f.write("API started")
+
+
 # Load product metadata
 products_df = pd.read_csv("metadata/products.csv")
 
